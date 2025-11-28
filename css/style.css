@@ -1,0 +1,180 @@
+@charset "utf-8";
+/* 全局设置：去掉默认边距，设置字体 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Microsoft YaHei", sans-serif;
+    background-color: #f4f4f4; /* 浅灰背景，护眼 */
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 顶部导航栏 */
+header {
+    background-color: #333; /*以此深色为底 */
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* 导航链接样式 */
+nav a {
+    color: #fff;
+    text-decoration: none; /* 去掉下划线 */
+    margin: 0 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+nav a:hover {
+    color: #4A90E2; /* 鼠标悬停变蓝色 */
+}
+
+/* 主容器：限制内容宽度，居中显示 */
+.container {
+    width: 900px; /* 页面总宽 */
+    margin: 0 auto; /* 左右自动居中 */
+    background-color: #fff;
+    min-height: 600px; /* 最小高度 */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* 给页面加点阴影，显立体 */
+}
+
+/* 首页大图区域 (Hero Section) */
+.hero {
+    width: 100%;
+    height: 300px;
+    overflow: hidden; /* 图片超出的切掉 */
+}
+.hero img {
+    width: 100%;
+    height: auto;
+}
+
+/* 内容区域 */
+.content {
+    padding: 40px;
+    text-align: center;
+}
+
+/* 首页的4个入口卡片布局 */
+.grid-box {
+    display: flex; /* 弹性布局，自动横向排列 */
+    justify-content: space-between; /* 两端对齐 */
+    flex-wrap: wrap; /* 允许换行 */
+    margin-top: 30px;
+}
+
+.card {
+    width: 45%; /* 每个卡片占45%宽度 */
+    margin-bottom: 35px;
+    border: 1px solid #eee;
+    padding: 15px;
+    border-radius: 8px; /* 圆角 */
+    transition: 0.3s; /* 动画过渡 */
+}
+.card:hover {
+	transform: translateY(-5px); /* 鼠标放上去微微上浮 */
+	box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* 保持图片比例不拉伸 */
+    border-radius: 5px;
+}
+.card h3 {
+    margin: 10px 0 5px 0;
+    color: #2c3e50;
+}
+
+/* 底部版权 */
+footer {
+    background-color: #333;
+    color: #999;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+/* --- 动态伸缩卡片特效 CSS 开始 --- */
+
+/* 1. 外层容器：决定了这块区域的大小 */
+.hero-gallery {
+    display: flex;
+    width: 100%;           /* 宽度跟随父元素 */
+    max-width: 1200px;     /* 最大宽度，防止在超大屏幕太宽 */
+    height: 500px;         /* 【重要】这里设定高度，你可以根据需要修改，比如 400px 或 60vh */
+    margin: 0 auto;        /* 居中显示 */
+    padding: 20px;         /* 稍微留点内边距 */
+    box-sizing: border-box;
+	/* 防止边框撑大容器 */
+}
+
+/* 2. 卡片本身 */
+.hero-card {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    color: #fff;
+    text-decoration: none; /* 去掉超链接下划线 */
+    
+    /* 核心动画设置 */
+    flex: 1;              /* 默认等分宽度 */
+    margin: 8px;          /* 卡片间距 */
+    position: relative;
+    transition: all 0.7s cubic-bezier(0.05, 0.6, 0.4, 0.9);
+    overflow: hidden;     /* 确保圆角有效 */
+}
+
+/* 3. 鼠标悬停时的效果 */
+.hero-card:hover {
+    flex: 4;              /* 悬停时变宽 (数字越大越宽) */
+    cursor: pointer;
+}
+
+/* 4. 卡片内的文字 */
+.hero-card h3 {
+    font-size: 24px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    margin: 0;
+    opacity: 0;           /* 默认隐藏 */
+    white-space: nowrap;  /* 不换行 */
+    background-color: rgba(0,0,0,0.6); /* 半透明背景 */
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: opacity 0.3s ease-in 0.2s;
+}
+
+/* 悬停时显示文字 */
+.hero-card:hover h3 {
+    opacity: 1;
+    transition-delay: 0.3s;
+}
+
+/* 5. 手机端适配 */
+@media (max-width: 768px) {
+    .hero-gallery {
+        flex-direction: column; /* 手机上改为竖排，或者你可以保持横排 */
+        height: 80vh;           /* 竖排时高度拉长 */
+    }
+    
+    .hero-card {
+        width: 100%;            /* 宽度占满 */
+    }
+    
+    .hero-card:hover {
+        flex: 1;                /* 手机上取消伸缩效果，或者保留 flex-grow */
+    }
+}
+
+/* --- 图片路径配置 (请修改为你自己的图片路径) --- */
+.hero-card:nth-child(1) { background-image: url('../image/pic1.jpg'); }
+.hero-card:nth-child(2) { background-image: url('../image/pic2.jpg'); }
+.hero-card:nth-child(3) { background-image: url('../image/pic3.jpg'); }
+.hero-card:nth-child(4) { background-image: url('../image/pic4.jpg'); }
+
+/* --- 动态伸缩卡片特效 CSS 结束 --- */
